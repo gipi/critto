@@ -1,0 +1,136 @@
+% TODO: fare si che ogni principale porzione del testo (sezioni, capitoli, appendici)
+% abbiano il proprio namespace così da potere differenziare definizioni, teoremi, etc...
+% in base al loro contesto
+\input eplain
+\input tikz
+\beginpackages
+  \usepackage{url}
+\endpackages
+%%%%%%%% SALVIAMO QUALCHE PARAMETRO COME È DI DEFAULT %%%%%%%%%%
+\newdimen\defaultparskip\defaultparskip=\parskip
+\newdimen\defaultparindent\defaultparindent=\parindent
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\font\defaultfn=cmr10
+\font\capitolofont=cmssdc10 at 30pt
+\font\sezionefont=cmssdc10 at 15pt
+\font\footnotefont=cmr10 at 7pt
+\font\Gotico=pxmia%<--- Definisce il Gotico
+\font\Gruppi=pxsyb%<--- Definisce il carattere ''sbarretta''
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	from tex-by-topic pg211
+\def\goodbreak{\par\penalty-500 } % encourage page break
+\def\capitolo#1\par{%
+	\vfill\supereject
+	\noindent\line{\capitolofont #1\hfil}%
+	\vskip 2cm
+}%
+\def\sezione#1\par{%
+	\bigskip
+	\goodbreak
+	\noindent\line{\sezionefont #1\hfil}%
+	\smallskip\noindent
+}%
+\newcount\numeronota
+% eplain reference pg30
+\let\notapiepagina=\numberedfootnote
+\everyfootnote={\parindent=\defaultparindent}
+
+% per le cose importanti
+\def\evidenzia<#1>{{\bf #1}}
+
+% per indicare gli spazi (dei messaggi, delle chiavi, etc...)
+\def\spazio #1{\hbox{\Gotico #1}}
+\def\gruppo #1{\hbox{\Gruppi #1}}
+\def\ordinegruppo #1{$o(\gruppo #1)$}
+\def\ordineelemento #1{$o(#1)$}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\slash#1{#1\llap{/}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newbox\littletitle%
+\newdimen\littletitledim\littletitledim=1.5cm
+\newdimen\littlespacedim\littlespacedim=0cm
+\def\voce#1: #2\par{%
+	\goodbreak
+	\setbox\littletitle\hbox{\bf #1: }%
+	\ifdim\wd\littletitle < \littletitledim
+		% calculate how many space need to align
+		\littlespacedim=\the\littletitledim
+		\advance\littlespacedim by -\the\wd\littletitle
+		\hangindent=\littletitledim
+		\hangafter=1
+		\noindent\box\littletitle\hskip\the\littlespacedim #2
+		\medskip
+	\else
+		\noindent\line{\box\littletitle\hfil}%
+		\par
+		\advance\leftskip by \littletitledim
+		\noindent #2%
+		\medskip
+		\advance\leftskip by -\littletitledim
+	\fi
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% per le citazioni
+\def\citazione#1\par{
+	\goodbreak
+	\bgroup
+	\bigskip
+	\parindent=2cm\narrower\sl
+	\noindent #1
+	\bigskip
+	\egroup
+}
+\def\definizione #1:#2\par{%
+	\goodbreak
+    \bigskip
+    \line{\hrulefill}
+    \line{{\bf Definizione X:} #1\hfill}
+    \medskip\noindent #2\medskip
+    \line{\hrulefill}
+    \bigskip
+}
+% http://www.texample.net/tikz/examples/boxes-with-text-and-math/
+% Define box and box title style
+\tikzstyle{mybox} = [draw=black,fill=blue!10,
+    rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[fill=gray, text=white]
+
+\def\ddefinizione #1:#2\par{%
+    \medskip
+\line{\hfil\tikzpicture
+\node [mybox] (box){%
+    \vbox{\hsize.7\hsize #2}
+};
+\node[fancytitle, right=10pt] at (box.north west) {#1};
+\node[fancytitle, rounded corners] at (box.east) {$\clubsuit$};
+\endtikzpicture\hfil}
+\medskip
+}
+
+\def\teorema #1:#2\par{%
+	\goodbreak
+    \bigskip
+    \line{{\bf Teorema X:} #1\hfill}
+    \medskip\noindent #2\medskip
+    \line{\hskip 5cm\hrulefill}
+    \bigskip
+}
+\def\corollario #1\par{%
+    \bigskip\noindent{\bf Corollario X:} #1\medskip
+    \bigskip
+}
+\def\newpage{\vfil\eject}
+
+%%%%%%%%%%%%%%%%% TIKZ %%%%%%%%%%%%%%%%%%%
+\usetikzlibrary{shapes,snakes}
+\def\slashed #1{%
+    \tikz[baseline=(char.base)]{%
+        \node[shape=strike out,draw,inner sep=2pt] (char) {#1};
+    }
+}
+\def\circled #1{%
+    \tikz[baseline=(char.base)]{%
+        \node[shape=circle,draw,inner sep=2pt] (char) {#1};
+    }
+}
+\def\todo #1{}

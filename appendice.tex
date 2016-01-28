@@ -1,0 +1,163 @@
+\capitolo Appendice matematica
+
+Nell'appendice saranno inserite le cose pi\`u formali dal punto di vista matematico
+che sono fini a se stessa.
+
+Partiamo con definire un \evidenzia<insieme> (che indicheremo con simboli del tipo \spazio A, \spazio B, \spazio C)
+come una collezione di elementi senza una struttura sottostante.
+
+
+
+\sezione Teoria dei gruppi
+
+Il \evidenzia<gruppo> \`e la prima struttura che \`e possibile fornire ad un insieme generico
+grazie alla definizione di una operazione interna.
+
+\definizione Gruppo: un insieme \gruppo G \`e un gruppo se ha definita una operazione $\cdot$
+tale che
+\unorderedlist
+\li per ogni coppia di elementi di \gruppo G il loro prodotto \`e ancora in \gruppo G
+$$
+\forall g,h\in\gruppo G,\>g\cdot h\in \gruppo G
+$$
+\li il prodotto \`e associativo
+$$
+\forall g,h,i\in \gruppo G,\> g\cdot\left(h\cdot i\right) = \left(g\cdot h\right)\cdot i
+$$
+\li esiste un elemento detto \evidenzia<identit\`a> che lascia invariato qualunque elemento gli si applichi
+$$
+\forall g\in \gruppo G,\>g\cdot e=g
+$$
+\li Per ogni elemento appartenente al gruppo esiste un altro elemento corrispondente che moltiplicati tra
+loro risultano nell'identit\`a
+$$
+\forall g\in\gruppo G,\exists g^{-1}\in\gruppo G, g\cdot g^{-1} = e
+$$
+\endunorderedlist
+
+\`E possibile derivare dalla definizione che
+\unorderedlist
+\li l'identit\`a \`e unico
+\li l'inverso di un elemento \`e unico
+\li l'inverso dell'inverso \`e l'elemento stesso
+$$
+\forall g\in\gruppo G,\>\left(g^{-1}\right)^{-1} = g
+$$
+\li l'inverso di un prodotto \`e il prodotto degli inversi con l'ordine scambiato
+$$
+\forall g,h\in\gruppo G,\>\left(g\cdot h\right)^{-1} = h^{-1}\cdot g^{-1}
+$$
+\endunorderedlist
+
+Per fare subito un esempio semplice, l'insieme dei numeri naturali dotato dell'operazione
+di somma $+$ \`e un esempio di gruppo (con ovviamente $0$ come elemento identit\`a). Da subito
+\`e chiaro che un gruppo pu\`o avere un numero di elementi infinito.
+
+\definizione Ordine del gruppo: numero di elementi di un gruppo \gruppo G, indicato con \ordinegruppo G.
+
+Pare ovvio che \`e possibile, a partire da un qualunque elemento di un gruppo, eseguire prodotti iterati
+di quell'elemento con se stesso all'infinito, ma siccome il numero di elementi \`e dato dal suo ordine
+\ordinegruppo G vuol dire che dopo un numero di volte dato dall'ordine gli elementi si devono ripetere:
+ed in particolare nell'elenco deve esistere anche l'indentit\`a (ovviamente pu\`o essere presente
+pi\`u di una volta)
+$$
+e\quad\underbrace{a\quad a^2\quad a^3\>\dots\> a^{o\left(\gruppo G\right)}}_{\exists r\>|\> a^r=e}
+$$
+\teorema Teorema di Lagrange: Se \gruppo G \`e un gruppo finito e \gruppo H \`e un sottogruppo
+di \gruppo G, allora \ordinegruppo H \`e un divisore di \ordinegruppo G.
+
+\corollario Se \gruppo G \`e un gruppo finito allora $o(g) |o(G)$
+
+Da questo deriva, unito al teorema di Lagrange, che $\forall g\in\gruppo G,\>g^{o(G)} = e$.
+
+Possiamo creare subito un gruppo dai numeri naturali prendendo la relazione modulo $N$ rispetto
+all'operazione di addizione.
+
+\definizione Funzione totiente:la funzione $\phi(N)$ che restituisce i numeri minori di $N$ e
+relativamente primi a $N$ \`e detta \evidenzia<funzione totiente>.
+
+Dati $m$ e $n$ relativamente primi fra loro si ha che
+\unorderedlist
+\li $\phi(nm) = \phi(n)\phi(m)$
+%\li $\phi(a^n) = \left[\phi(a)\right]^n$
+\endunorderedlist
+
+Da Eulero sappiamo che vale la relazione
+$$
+\phi(n) = n \prod_{p|n}\left(1 - {1\over p}\right)
+$$
+dove la produttoria \`e effettuata su tutti i primi che dividono $n$. Da ci\`o si ha che
+se $p$ \`e primo allora vale
+$$
+\phi(p^k) = p^k - p^{k-1}
+$$
+
+Un altro gruppo (indichiamolo con $\gruppo Z^\ast_N$) \`e dato dall'insieme dei numeri minori di $N$ relativamente primi con esso,
+rispetto all'operazione di moltiplicazione modulo $N$. L'ordine di questo gruppo \`e proprio
+dato da $\phi(N)$. Da notare che se $N$ è primo, allora tutti gli elementi minori di questo valore
+appartengono al gruppo.
+
+A questo punto possiamo applicare questi risultati a \evidenzia<teoria dei numeri>: prendiamo
+un intero $a$ relativamente primo con $N$ allora
+$$
+a^{\phi(N)} = 1 \pmod N
+$$
+da questa formula \`e facile ottenere l'inverso di un numero $a$: $a^{-1} = a^{\phi(N) - 1} \pmod N$.
+
+Vediamo un esempio pratico con numeri veri: nel gruppo $\gruppo Z^\ast_{55}$ gli elementi sono
+dati dai numeri minori di 55 che non hanno divisori in comune con 11 e 5
+$$
+\matrix{
+1 & 2 & \circled 3 & 4 & \slashed 5 &  6 & 7 & 8 & 9 & \slashed{10}\cr
+\slashed{11} & 12 & 13 & 14 & \slashed{15} &  16 & 17 & 18 & 19 & \slashed{20}\cr
+21 & \slashed{22} & 23 & 24 & \slashed{25} &  26 & 27 & 28 & 29 & \slashed{30}\cr
+31 & 32 & \slashed{33} & 34 & \slashed{35} &  36 & \circled{37} & 38 & 39 & \slashed{40}\cr
+41 & 42 & 43 & \slashed{44} & \slashed{45} & 46 & 47 & 48 & 49 & \slashed{50}\cr
+51 & 52 & 53 & 54 & \slashed{55}\cr
+}
+$$
+Come si pu\`o desumere il numero di elementi del gruppo \`e proprio dato da $\phi(55)=\phi(5\cdot 11)=\phi(5)\cdot\phi(11)=4\cdot 10=40$.
+Sono cerchiati due numeri reciproci tra loro, $3$ e $37$.
+
+Notare come l'elemento $12$ genera un sottogruppo di solo 4 elementi:
+$$
+\matrix{
+    1 & 12 & 34 &   23\cr
+}
+$$
+Notare come $\gruppo Z^\ast_{2^k}$ ha come elementi tutti i numeri interi dispari.
+
+\definizione Omomorfismo:Una operazione che conserva l'operazione di gruppo.
+Sia $\phi\colon\gruppo G\to\gruppo H$ una funzione da un gruppo ad un altro
+$$
+\forall g,h\in\gruppo G,\>\phi(g\cdot h) = \phi(g)\cdot\phi(h)
+$$
+
+\capitolo Statistica
+
+Nei casi pratici ci si trova ad avere a che fare con situazioni in cui si ha un rapporto
+probabilistico con gli eventi
+
+\sezione Combinatoria
+
+$$
+{N \choose r} = {N!\over \left(N-r\right)! r!}\>\sim 2^{N H_2(r/N)},{N\choose 0} = {N\choose N} = 1
+$$
+$$
+{N\choose 1} = {N\choose N-1} = N
+$$
+$$
+\left(a + b\right)^N = \sum^N_{r=0}{N\choose r}a^{N-r}b^r
+$$
+$$
+\left(1 + 1\right)^N = \sum^N_{r=0}{N\choose r} = 2^N
+$$
+
+\sezione Computabilit\`a
+
+La caratteristica fondamentale di una funzione computabile è che deve esserci
+una procedura finita (un algoritmo) che descriva come eseguire il calcolo.
+
+\sezione Curve ellittiche
+
+\url{http://ecchacks.cr.yp.to/}

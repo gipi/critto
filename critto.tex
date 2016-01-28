@@ -1,0 +1,101 @@
+\input macro
+
+\capitolo Introduzione
+
+I nomi tecnici molte volte vengono mantenuti in inglese per essere facilmente
+riconoscibili e approfonditi nella letteratura standard (che sono in inglese).
+
+\sezione Storia
+
+Ci sono alcuni algoritmi che sono usati sin dall'antichit\`a. La loro facilit\`a nel
+romperli render\`a evidenti alcuni principi esposti in seguito.
+
+Partiamo con i tipi di cifrario pi\`u semplice, i \evidenzia<cifrari a sostituzione>:
+in questi schemi una lettera viene sostituta con un'altra seconda una qualche regola.
+
+Il pi\`u semplice \`e lo \evidenzia<shift cipher> in cui ogni lettera viene sostituita
+con quella che si trova ad un certo numero di caratteri da essa, la chiave \`e proprio
+l'offset. Ovviamente \`e triviale ``rompere'' questo cifrario in quanto per un normale
+alfabeto le chiavi possibili sono qualche decina, quindi esauribili in un semplice
+attacco di forza bruta.
+
+Un perfezionamento \`e scegliere una permutazione delle lettere dell'alfabeto in modo
+da avere uno spazio delle chiavi pari a $26!\sim 2^?$
+
+\todo hill's cipher
+
+\ddefinizione Principio di Kierchoffs:L'algoritmo di cifratura non deve essere segreto,
+l'unico segreto deve essere la chiave che deve essere scelta in maniera casuale. Molto
+importante \`e che lo spazio delle chiavi deve essere largo abbastanza da prevenire
+un attacco di forza bruta.
+
+Una cosa di cui tenere conto per valutare correttamente il principio sopra esposto \`e
+il fatto che il tuo avversario pu\`o essere il tuo interlocutore con il quale utilizzi
+l'algoritmo che dovrebbe rimanere segreto. Poi nella pratica, un reverser capace di leggere
+assembler pu\`o comprendere il codice senza problemi\notapiepagina{In assembler qualunque
+codice \`e open source.}. Inoltre si pu\`o avere pi\`u di un interlocutore e ovviamente
+si dovrebbe avere un algoritmo diverso per ognuno (quindi un programma diverso).
+
+Negli anni 70 e 80 inizia a definirsi una scienza vera e propria
+\medskip
+\voce Definizioni formali: utile per capire cosa si ottiene e comporre con altri schemi
+
+\voce Assunti: assunti computazionali
+
+\voce Dimostrazioni di sicurezza: fornire una dimostrazione rigorosa che una costruzione
+soddisfa una certa definizione sotto specifici assunti
+
+\sezione Threat model
+
+La cosa pi\`u importante per definire se un algoritmo \`e sicuro \`e capire
+cosa l'avversario pu\`o fare.
+
+Prima di tutto defininiamo in linea di massima i tipi di attaccanti che
+generalmente si definiscono per una definzione di sicurezza:
+\smallskip
+\voce ciphertext-only-attack: l'avversario ha a disposizione solo un testo cifrato
+e deve decifrarlo
+
+\voce known-plaintext attack: l'avversario ha a disposizione uno o pi\`u testi cifrati
+con i correspettivi plaintext.
+
+\voce chosen-plaintext-attack: l'attaccante pu\`o permettersi di sottoporre all'oracolo
+plaintext di sua scelta
+
+\voce chosen-ciphertext-attack: l'attaccante pu\`o, oltre a sottoporre all'oracolo
+plaintext a sua scelta, anche di avere decifrati dei ciphertext di sua scelta.
+In generale cipher che sono malleabili non resistono a questi attacchi.
+
+Ovviamente sono in ordine di potenza, con i primi due esclusivamente passivi.
+
+Oltre a queste considerazioni bisogna tenere conto alcuni aspetti particolari della crittografia:
+spesse volte il nostro avversario non pu\`o essere per forza di cose definito con precisione,
+in quanto viene richiesto di resistere per 20 anni ad attacchi e ovviamente non possiamo avere
+una idea precisa delle possibilit\`a future. Quindi \`e importante, nel prgettare sistemi che
+utilizzano primitive crittografiche, fare in modo di limitare i danni in caso di failure di
+altre porzioni del sistema.
+
+\sezione Perfect secrecy
+
+\citazione Nonostante ogni informazione precedente che l'attaccante ha riguardo al plaintext
+il ciphertext non deve fornire nessuna informazione aggiuntiva su di esso.
+
+Sia $M$ una variabile random che indica il valore di un messaggio
+Formalmente, uno schema di cifratura con spazio dei messaggi \spazio M e spazio dei
+testi cifrati \spazio C \`e perfettamente sicuro se per ogni distribuzione su \spazio M
+si ha che
+$$
+\hbox{Pr}\left[M=m|C=c\right] = \hbox{Pr}\left[M=m\right]
+$$
+
+\input modi
+
+\input random
+
+\input autenticazione
+
+\input pratici
+
+\input appendice
+
+\end
