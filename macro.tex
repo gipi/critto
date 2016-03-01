@@ -13,6 +13,7 @@
 \font\defaultfn=cmr10
 \font\capitolofont=cmssdc10 at 30pt
 \font\sezionefont=cmssdc10 at 15pt
+\font\sottosezionefont=cmssdc10 at 12pt
 \font\footnotefont=cmr10 at 7pt
 \font\Gotico=pxmia%<--- Definisce il Gotico
 \font\Gruppi=pxsyb%<--- Definisce il carattere ''sbarretta''
@@ -27,7 +28,13 @@
 \def\sezione#1\par{%
 	\bigskip
 	\goodbreak
-	\noindent\line{\sezionefont #1\hfil}%
+	\noindent\line{\sezionefont\# #1\hfil}%
+	\smallskip\noindent
+}%
+\def\sottosezione#1\par{%
+	\bigskip
+	\goodbreak
+	\noindent\line{\sottosezionefont #1\hfil}%
 	\smallskip\noindent
 }%
 \newcount\numeronota
