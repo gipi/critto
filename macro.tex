@@ -6,37 +6,49 @@
 \beginpackages
   \usepackage{url}
 \endpackages
+\input fonts
+\input counters
 %%%%%%%% SALVIAMO QUALCHE PARAMETRO COME È DI DEFAULT %%%%%%%%%%
 \newdimen\defaultparskip\defaultparskip=\parskip
 \newdimen\defaultparindent\defaultparindent=\parindent
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\font\defaultfn=cmr10
-\font\capitolofont=cmssdc10 at 30pt
-\font\sezionefont=cmssdc10 at 15pt
-\font\sottosezionefont=cmssdc10 at 12pt
-\font\footnotefont=cmr10 at 7pt
-\font\Gotico=pxmia%<--- Definisce il Gotico
-\font\Gruppi=pxsyb%<--- Definisce il carattere ''sbarretta''
+% we have done with this page, pass to another one
+\def\flushPage{\vfill\eject}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	from tex-by-topic pg211
 \def\goodbreak{\par\penalty-500 } % encourage page break
 \def\capitolo#1\par{%
-	\vfill\supereject
+\global\secN=0%
+    \global\advance\chapN by 1%
+	\vfill\supereject%
+	\noindent\line{\capitolofont Capitolo \the\chapN\hfil}%
+    \smallskip
 	\noindent\line{\capitolofont #1\hfil}%
-	\vskip 2cm
+	\vskip 2cm%
+    \writetocentry{chapter}{#1}%
 }%
 \def\sezione#1\par{%
-	\bigskip
-	\goodbreak
-	\noindent\line{\sezionefont\# #1\hfil}%
-	\smallskip\noindent
-}%
+    \global\advance\secN by 1%
+	\bigskip%
+	\goodbreak%
+	\noindent\line{\sezionefont\the\chapN.\the\secN\ / #1\hfil}%
+	\smallskip\noindent%
+    \writetocentry{section}{#1}
+}
 \def\sottosezione#1\par{%
 	\bigskip
 	\goodbreak
 	\noindent\line{\sottosezionefont #1\hfil}%
 	\smallskip\noindent
 }%
+% Appendici
+%\def\tocappendiceentry#1#2#3{\hbox{\hfill{#1}\hfill}}
+\def\appendice#1{%
+\flushPage%
+\hbox{\global\ChapMark={#1}\titoloCap \global\advance\appN by 1 \noindent Appendice \uppercase\expandafter{\romannumeral\the\appN}}
+\bigskip\noindent{\titoloCapUno #1}\vskip 3cm%
+%\writetocentry{2}{\titoloCap\bigskip\noindent\uppercase\expandafter{\romannumeral\the\appN} /\ #1\hfill\folio}
+}
 \newcount\numeronota
 % eplain reference pg30
 \let\notapiepagina=\numberedfootnote
@@ -96,6 +108,8 @@
     \line{\hrulefill}
     \bigskip
 }
+\def\Pr[#1]{\hbox{Pr}\left[#1\right]}
+\def\ENC #1(#2){\hbox{ENC}_{#1}\left(#2\right)}
 % http://www.texample.net/tikz/examples/boxes-with-text-and-math/
 % Define box and box title style
 \tikzstyle{mybox} = [draw=black,fill=blue!10,

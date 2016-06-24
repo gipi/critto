@@ -1,5 +1,7 @@
 \input macro
 
+\readtocfile
+
 \capitolo Introduzione
 
 I nomi tecnici molte volte vengono mantenuti in inglese per essere facilmente
@@ -83,9 +85,15 @@ il ciphertext non deve fornire nessuna informazione aggiuntiva su di esso.
 Sia $M$ una variabile random che indica il valore di un messaggio
 Formalmente, uno schema di cifratura con spazio dei messaggi \spazio M e spazio dei
 testi cifrati \spazio C \`e perfettamente sicuro se per ogni distribuzione su \spazio M
-si ha che
+si ha che, per ogni messaggio $m$
 $$
-\hbox{Pr}\left[M=m|C=c\right] = \hbox{Pr}\left[M=m\right]
+\Pr[M=m\,|\,C=c] = \Pr[M=m]
+$$
+cio\'e conoscere il testo cifrato non d\`a nessuna informazione al riguardo del messaggio da decifrare.
+
+Si pu\`o dimostrare che questo \`e equivalente a chiedere che per ogni coppia di messaggi $m$ e $m^\prime$
+$$
+\Pr[\ENC K(m^\prime) = c] = \Pr[\ENC k(m) = c]
 $$
 
 \input modi
@@ -95,6 +103,14 @@ $$
 \input autenticazione
 
 \input pratici
+
+\appendice A
+
+Nell'appendice saranno inserite le cose pi\`u formali dal punto di vista matematico
+che sono fini a se stessa.
+
+Partiamo con definire un \evidenzia<insieme> (che indicheremo con simboli del tipo \spazio A, \spazio B, \spazio C)
+come una collezione di elementi senza una struttura sottostante.
 
 \input appendice
 

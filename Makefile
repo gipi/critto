@@ -1,6 +1,7 @@
 SRC_MACRO  = macro.tex
 SRC_MAIN   = critto.tex
-SRC        = appendice.tex
+SRC        = critto.toc
+SRC       += appendice.tex
 SRC       += pratici.tex
 SRC       += modi.tex
 SRC       += random.tex
