@@ -7,7 +7,7 @@
   \usepackage{url}
 \endpackages
 \input fonts
-\input counters
+\input routines/counters
 %%%%%%%% SALVIAMO QUALCHE PARAMETRO COME È DI DEFAULT %%%%%%%%%%
 \newdimen\defaultparskip\defaultparskip=\parskip
 \newdimen\defaultparindent\defaultparindent=\parindent
@@ -58,7 +58,7 @@
 \def\evidenzia<#1>{{\bf #1}}
 
 % per indicare gli spazi (dei messaggi, delle chiavi, etc...)
-\def\spazio #1{\hbox{\Gotico #1}}
+\def\spazio #1{\hbox{\Gruppi #1}}
 \def\gruppo #1{\hbox{\Gruppi #1}}
 \def\ordinegruppo #1{$o(\gruppo #1)$}
 \def\ordineelemento #1{$o(#1)$}
@@ -100,10 +100,11 @@
 	\egroup
 }
 \def\definizione #1:#2\par{%
+    \global\advance\defN by 1%
 	\goodbreak
     \bigskip
     \line{\hrulefill}
-    \line{{\bf Definizione X:} #1\hfill}
+    \line{{\bf Definizione D\the\defN:} #1\hfill}
     \medskip\noindent #2\medskip
     \line{\hrulefill}
     \bigskip
@@ -154,4 +155,4 @@
         \node[shape=circle,draw,inner sep=2pt] (char) {#1};
     }
 }
-\def\todo #1{}
+\def\todo #1\par{}

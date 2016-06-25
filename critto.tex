@@ -14,7 +14,6 @@ romperli render\`a evidenti alcuni principi esposti in seguito.
 
 Partiamo con i tipi di cifrario pi\`u semplice, i \evidenzia<cifrari a sostituzione>:
 in questi schemi una lettera viene sostituta con un'altra seconda una qualche regola.
-
 Il pi\`u semplice \`e lo \evidenzia<shift cipher> in cui ogni lettera viene sostituita
 con quella che si trova ad un certo numero di caratteri da essa, la chiave \`e proprio
 l'offset. Ovviamente \`e triviale ``rompere'' questo cifrario in quanto per un normale
@@ -77,6 +76,24 @@ una idea precisa delle possibilit\`a future. Quindi \`e importante, nel prgettar
 utilizzano primitive crittografiche, fare in modo di limitare i danni in caso di failure di
 altre porzioni del sistema.
 
+\sezione Encryption schemes
+
+Il soggetto principale di questi appunti è un \evidenzia<encryption scheme>, cio\`e un sistema
+di cifratura che a partire da un certo tipo di messaggi, possa trasformarli e ``renderli illeggibili''.
+
+Il certo tipo di messaggi \`e definito dallo spazio \spazio M, che ha una distribuzione probabilistica
+dei suoi elementi data dal contesto (si pensi ad un linguaggio naturale con la distribuzione di probabilit\`a
+di parole e lettere etc...). La probabilit\`a di un messaggio $m$ \`e data da $\Pr[\gruppo M = m]$.
+
+\definizione ES: Definiamo uno schema di cifratura $\Pi$, una tripla di algoritmi $(GEN, ENC, DEC)$
+tali che
+\unorderedlist
+\li $GEN$: algoritmo di generazione della chiave, pu\`o essere stocastico, si pu\`o dimostrare
+che pu\`o essere scelta in maniera uniforme. Essa definisce $\Pr[\spazio K=k]$.
+\li $ENC$: algoritmo di cifratura vero e proprio, pu\`o essere non deterministico
+\li $DEC$: algoritmo ``inverso'' di $\hbox{ENC}$
+\endunorderedlist
+
 \sezione Perfect secrecy
 
 \citazione Nonostante ogni informazione precedente che l'attaccante ha riguardo al plaintext
@@ -95,6 +112,18 @@ Si pu\`o dimostrare che questo \`e equivalente a chiedere che per ogni coppia di
 $$
 \Pr[\ENC K(m^\prime) = c] = \Pr[\ENC k(m) = c]
 $$
+dove la probabilit\`a \`e presa rispetto alla distribuzione di \spazio K.
+
+Una cosa importante da tenere a mente riguardo la notazione che pu\`o sembrare fuorviante: definiamo proprio
+$\Pr[\spazio C=c\,|\,\spazio M=m] = \Pr[\ENC\spazio K(m) = c]$, per comodit\`a, siccome l'algoritmo di cifratura
+\`e scritto naturalmente a partire da un messaggio in \spazio M, per generare un elemento in \spazio C.
+
+Per ricavare la relazione pi\`u di nostro interesse utilizziamo la regola di Bayes cos\`\i\ da ottenere
+$$
+\Pr[\spazio M=m\,|\,\spazio C=c] = {\Pr[\spazio C=c\,|\,\spazio M=m]\Pr[\spazio M=m]\over\Pr[\spazio C=c]}
+$$
+Le due relazioni sono uguali solo se $\Pr[\spazio M=m] = \Pr[\spazio C=c]$, che come vedremo pu\`o ritenersi vero
+nei casi applicabili al teorema di Shannon.
 
 \input modi
 
@@ -107,7 +136,7 @@ $$
 \appendice A
 
 Nell'appendice saranno inserite le cose pi\`u formali dal punto di vista matematico
-che sono fini a se stessa.
+che sono fini a se stesse.
 
 Partiamo con definire un \evidenzia<insieme> (che indicheremo con simboli del tipo \spazio A, \spazio B, \spazio C)
 come una collezione di elementi senza una struttura sottostante.
