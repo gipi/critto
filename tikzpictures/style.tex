@@ -1,0 +1,12 @@
+% http://www.texample.net/tikz/examples/boxes-with-text-and-math/
+% Define box and box title style
+\tikzstyle{mybox} = [draw=black,fill=blue!10,
+    rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[fill=gray, text=white]
+\tikzset{XOR/.style={fill=black!15,draw,minimum size=15pt,circle,append after command={
+        [shorten >=\pgflinewidth, shorten <=\pgflinewidth,]
+        (\tikzlastnode.north) edge (\tikzlastnode.south)
+        (\tikzlastnode.east) edge (\tikzlastnode.west)
+        }
+    }
+}

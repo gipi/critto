@@ -8,6 +8,7 @@
 \endpackages
 \input fonts
 \input routines/counters
+\input tikzpictures/style.tex
 %%%%%%%% SALVIAMO QUALCHE PARAMETRO COME È DI DEFAULT %%%%%%%%%%
 \newdimen\defaultparskip\defaultparskip=\parskip
 \newdimen\defaultparindent\defaultparindent=\parindent
@@ -111,12 +112,6 @@
 }
 \def\Pr[#1]{\hbox{Pr}\left[#1\right]}
 \def\ENC #1(#2){\hbox{ENC}_{#1}\left(#2\right)}
-% http://www.texample.net/tikz/examples/boxes-with-text-and-math/
-% Define box and box title style
-\tikzstyle{mybox} = [draw=black,fill=blue!10,
-    rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
-\tikzstyle{fancytitle} =[fill=gray, text=white]
-
 \def\ddefinizione #1:#2\par{%
     \medskip
 \line{\hfil\tikzpicture
@@ -142,7 +137,18 @@
     \bigskip
 }
 \def\newpage{\vfil\eject}
-
+\def\picture #1\par{
+\begingroup
+\global\advance\figN by 1%
+\global\figCaptionTok={#1}
+\midinsert
+}
+\def\endpicture{
+    \endinsert%
+    \endgroup%
+    \smallskip
+    \line{\hfill\noindent Figura \the\figN: \expandafter{\the\figCaptionTok\hfill}}%
+}
 %%%%%%%%%%%%%%%%% TIKZ %%%%%%%%%%%%%%%%%%%
 \usetikzlibrary{shapes,snakes}
 \def\slashed #1{%
