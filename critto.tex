@@ -85,13 +85,13 @@ Il certo tipo di messaggi \`e definito dallo spazio \spazio M, che ha una distri
 dei suoi elementi data dal contesto (si pensi ad un linguaggio naturale con la distribuzione di probabilit\`a
 di parole e lettere etc...). La probabilit\`a di un messaggio $m$ \`e data da $\Pr[\gruppo M = m]$.
 
-\definizione ES: Definiamo uno schema di cifratura $\Pi$, una tripla di algoritmi $(GEN, ENC, DEC)$
+\definizione ES: Definiamo uno schema di cifratura $\Pi$, una tripla di algoritmi $(\algoritmo Gen , \algoritmo Enc , \algoritmo Dec )$
 tali che
 \unorderedlist
-\li $GEN$: algoritmo di generazione della chiave, pu\`o essere stocastico, si pu\`o dimostrare
+\li \algoritmo Gen : algoritmo di generazione della chiave, pu\`o essere stocastico, si pu\`o dimostrare
 che pu\`o essere scelta in maniera uniforme. Essa definisce $\Pr[\spazio K=k]$.
-\li $ENC$: algoritmo di cifratura vero e proprio, pu\`o essere non deterministico
-\li $DEC$: algoritmo ``inverso'' di $\hbox{ENC}$
+\li \algoritmo Enc : algoritmo di cifratura vero e proprio, pu\`o essere non deterministico
+\li \algoritmo Dec : algoritmo ``inverso'' di \algoritmo Enc
 \endunorderedlist
 
 \sezione Perfect secrecy
@@ -110,7 +110,7 @@ cio\'e conoscere il testo cifrato non d\`a nessuna informazione al riguardo del 
 
 Si pu\`o dimostrare che questo \`e equivalente a chiedere che per ogni coppia di messaggi $m$ e $m^\prime$
 $$
-\Pr[\ENC K(m^\prime) = c] = \Pr[\ENC k(m) = c]
+\Pr[{\algoritmo Enc }_K(m^\prime) = c] = \Pr[{\algoritmo Enc }_K(m) = c]
 $$
 dove la probabilit\`a \`e presa rispetto alla distribuzione di \spazio K.
 
